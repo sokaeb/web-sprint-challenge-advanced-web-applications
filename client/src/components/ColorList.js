@@ -49,30 +49,20 @@ const ColorList = ({ colors, updateColors }) => {
     .then(res =>{
       // console.log('color param', color)
       // console.log('res', res)
-      updateColors(colors)
+      const newColorList = colors.filter((color) => res.data !== color.id);
+      updateColors(newColorList);
     })
     .catch(err => {
       console.log(err)
     })
   };
 
-  // useEffect(() => {
-  //   axiosWithAuth()
-  //   .get("/api/colors")
-  //   .then(res => {
-  //     updateColors(res.data)
-  //   })
-  //   .catch(err => {
-  //     console.log(err)
-  //   })
-  // }, [updateColors])
-
   return (
     <div className="colors-wrap">
       <p>colors</p>
       <ul>
         {colors.map(color => (
-          <li key={color.color} onClick={() => editColor(color)}>
+          <li data-testid="color" key={color.color} onClick={() => editColor(color)}>
             <span>
               <span className="delete" onClick={e => {
                     e.stopPropagation();
